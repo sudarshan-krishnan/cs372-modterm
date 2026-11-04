@@ -1,7 +1,6 @@
 import SongCard from "./SongCard";
 
-//TODO (props): Accept the appropriate props.
-export default function Playlist() {
+export default function Playlist({ songs = [], removeSong }) {
   return (
     <section className="section">
       <h2>My Playlist: ({songs.length} songs)</h2>
@@ -11,8 +10,7 @@ export default function Playlist() {
         <ul className="card-list">
           {songs.map((song) => (
             <li key={song.id}>
-              {/* TODO: Render a SongCard and pass the song and callback. */}
-              
+              <SongCard song={song} removeSong={removeSong} />
             </li>
           ))}
         </ul>

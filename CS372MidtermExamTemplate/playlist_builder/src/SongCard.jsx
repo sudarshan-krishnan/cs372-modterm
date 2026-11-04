@@ -2,8 +2,8 @@ import { useContext } from "react";
 import PlaybackContext from "./PlaybackContext";
 
 export default function SongCard({ song, addSong, removeSong }) {
-  // TODO (context): Read the nowPlayingID and setter from PlaybackContext.
-  
+  const { nowPlayingId, setNowPlayingId } = useContext(PlaybackContext) ?? {};
+
   const isPlaying = nowPlayingId === song.id;
 
   return (
@@ -11,9 +11,8 @@ export default function SongCard({ song, addSong, removeSong }) {
       <h3>{song.title}</h3>
       <p>{song.artist}</p>
       {isPlaying && <p className="now-playing">Now Playing</p>}
-      {addSong && ( 
-        <button className="button" >
-        {/* TODO: Add the song to playlist when the button is clicked. */}
+      {addSong && (
+        <button className="button" onClick={() => addSong(song)}>
           Add to Playlist
         </button>
       )}
@@ -21,15 +20,20 @@ export default function SongCard({ song, addSong, removeSong }) {
         <>
           <button
             className="button"
-            // TODO: When clicked, if the song is currently playing, pause it. Otherwise, set it as the currently playing song.
-            
+            onClick={() => {
+              if (isPlaying) {
+                setNowPlayingId(null);
+                return;
+              }
+
+              setNowPlayingId(song.id);
+            }}
           >
             {isPlaying ? "Pause" : "Play"}
           </button>
           <button
             className="button btn-danger"
-            // TODO: Remove the song from the playlist when the button is clicked.
-            
+            onClick={() => removeSong(song)}
           >
             Remove
           </button>

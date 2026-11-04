@@ -19,8 +19,7 @@
     <main>
         <section class="controls">
             <h2>Add a Trail</h2>
-            <!-- TODO: Link the event to add a trail -->
-            <form id="trailForm">
+            <form id="trailForm" onsubmit="addTrail(event)">
                 <div class="field">
                     <label for="trailName">Trail Name</label>
                     <input id="trailName" name="trailName" type="text" required>
@@ -43,8 +42,7 @@
         <section class="controls filters">
             <div class="field">
                 <label for="distanceSelect">Distance</label>
-                <!-- TODO: Link the event to display trails -->
-                <select id="distanceSelect">
+                <select id="distanceSelect" onchange="displayTrails()">
                     <option value="All">All Distances</option>
                     <option value="0-1">0-1 Miles</option>
                     <option value="1-3">1-3 Miles</option>
@@ -53,8 +51,7 @@
             </div>
             <div class="field">
                 <label for="sortSelect">Sort By</label>
-                <!-- TODO: Link the event to display trails -->
-                <select id="sortSelect">
+                <select id="sortSelect" onchange="displayTrails()">
                     <option value="name">Trail Name</option>
                     <option value="distance">Distance</option>
                 </select>

@@ -12,28 +12,42 @@ const songCatalog = [
 ];
 
 export default function App() {
-  // TODO (state): Store the playlist and currently playing song ID in state.
+  const [playlist, setPlaylist] = useState([]);
+  const [nowPlayingId, setNowPlayingId] = useState(null);
 
-  // TODO (side effect): Update the document title when the playlist changes.
+  useEffect(() => {
+    document.title = `Playlist Builder${playlist.length ? ` - ${playlist.length} songs` : ""}`;
+  }, [playlist]);
 
-  // Only show songs that are not already in the playlist.
   const availableSongs = songCatalog.filter(
     (song) => !playlist.some((item) => item.id === song.id),
   );
 
   function addSong(songToAdd) {
-    //TODO (state): Add the song to the playlist and set it as the currently playing song.
+    setPlaylist((currentPlaylist) => {
+      if (currentPlaylist.some((item) => item.id === songToAdd.id)) {
+        return currentPlaylist;
+      }
+
+      return [...currentPlaylist, songToAdd];
+    });
+    setNowPlayingId(songToAdd.id);
   }
 
   function removeSong(songToRemove) {
-    //TODO (state): Remove the song from the playlist. If it was the currently playing song, set the currently playing song to null.
+    setPlaylist((currentPlaylist) =>
+      currentPlaylist.filter((item) => item.id !== songToRemove.id),
+    );
+
+    if (nowPlayingId === songToRemove.id) {
+      setNowPlayingId(null);
+    }
   }
 
   const nowPlayingSong = songCatalog.find((song) => song.id === nowPlayingId);
 
   return (
-    // TODO (context): Provide the currently playing song ID and its setter function into the context.
-    <PlaybackContext.Provider value={  }>
+    <PlaybackContext.Provider value={{ nowPlayingId, setNowPlayingId }}>
       <main>
         <div className="app-container">
           <header className="app-header">
@@ -45,15 +59,13 @@ export default function App() {
             <ul className="card-list">
               {availableSongs.map((song) => (
                 <li key={song.id}>
-                  {/* TODO: Render SongCard and pass the song and callback. */}
-                  
+                  <SongCard song={song} addSong={addSong} />
                 </li>
               ))}
             </ul>
           </section>
 
-          {/* TODO: Render the Playlist pass the songs and callback. */}
-          
+          <Playlist songs={playlist} removeSong={removeSong} />
         </div>
         <p className="playback-status">
           {nowPlayingSong

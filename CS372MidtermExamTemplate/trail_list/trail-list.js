@@ -21,20 +21,49 @@ function toggleSortDirection() {
 /* BEGIN COPY SECTION ------------------------------------- */
 
 function displayTrails() {
-  //TODO: Get the selected distance and sort preference, filter and sort the trails array, and update the table with the matching trails.
-  
-  let matchingTrails; // An array of trails that match the selected distance and sort preference
-    
+  const selectedDistance = document.getElementById("distanceSelect").value;
+  const selectedSort = document.getElementById("sortSelect").value;
 
+  let matchingTrails = [...trails];
 
-    /* HTML Chunk for use in table:
+  if (selectedDistance !== "All") {
+    matchingTrails = matchingTrails.filter((trail) => {
+      if (selectedDistance === "0-1") {
+        return trail.distance >= 0 && trail.distance <= 1;
+      }
+
+      if (selectedDistance === "1-3") {
+        return trail.distance > 1 && trail.distance <= 3;
+      }
+
+      return trail.distance > 3;
+    });
+  }
+
+  matchingTrails.sort((a, b) => {
+    if (selectedSort === "name") {
+      const comparison = a.name.localeCompare(b.name);
+      return ascending ? comparison : -comparison;
+    }
+
+    const comparison = a.distance - b.distance;
+    return ascending ? comparison : -comparison;
+  });
+
+  const rowsHtml = matchingTrails
+    .map(
+      (trail) => `
         <tr>
           <td>${trail.name}</td>
           <td>${trail.distance.toFixed(1)} miles</td>
         </tr>
-    */
+      `,
+    )
+    .join("");
 
-  
+  document.getElementById("trailRows").innerHTML =
+    rowsHtml ||
+    '<tr><td colspan="2" class="empty-message">No trails match your filters.</td></tr>';
 
   document.getElementById("status").textContent =
     `${matchingTrails.length} trail(s) found.`;
@@ -43,12 +72,16 @@ function displayTrails() {
 function addTrail(event) {
   event.preventDefault();
 
-  // TODO: Add code to get the trail name and distance and add a new trail to the trails array. Then call displayTrails() to update the table.
-  
-  
-  
+  const name = document.getElementById("trailName").value.trim();
+  const distance = Number.parseFloat(document.getElementById("trailDistance").value);
 
-  //Resets the form fields to empty
+  if (!name || Number.isNaN(distance) || distance <= 0) {
+    return;
+  }
+
+  trails.push({ name, distance });
+  displayTrails();
+
   document.getElementById("trailForm").reset();
 }
 

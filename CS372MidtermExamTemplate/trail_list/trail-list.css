@@ -131,7 +131,12 @@ tbody tr:nth-child(even) {
 }
 
 /* BEGIN COPY SECTION ------------------------------------- */
-/* TODO: Display the forms as a column when the screen is below 900 px width */
-
+@media (max-width: 900px) {
+  #trailForm,
+  .filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
 
 /* END COPY SECTION ------------------------------------- */
