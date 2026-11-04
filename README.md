@@ -1,1 +1,1 @@
-# cs372-modterm
+# cs372-midterm

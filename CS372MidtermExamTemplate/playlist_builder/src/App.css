@@ -1,0 +1,147 @@
+:root {
+  --bg: #f4f4f6;
+  --surface: #ffffff;
+  --text: #252525;
+  --muted: #6b6b76;
+  --border: #e2e2e8;
+  --primary: #315c46;
+  --danger: #b3261e;
+  --danger-hover: #8c1d18;
+
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  color: var(--text);
+  background-color: var(--bg);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 4rem);
+}
+
+.app-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.playback-status {
+  margin: auto 0 0;
+  color: var(--muted);
+  font-weight: 700;
+  text-align: center;
+  font-size: 2rem;
+  border-top: 2px solid var(--border);
+  margin-top: 2rem;
+}
+
+.section h2 {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+}
+
+.section + .section {
+  margin-top: 2rem;
+}
+
+.card-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.song-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  height: 100%;
+  padding: 1rem 1.25rem;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 8%);
+}
+
+.song-card h3 {
+  margin: 0;
+  color: var(--primary);
+}
+
+.song-card p {
+  flex: 1;
+  margin: 0 0 0.75rem;
+  color: var(--muted);
+}
+
+.song-card .now-playing {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.button {
+  padding: 0.5rem 0.9rem;
+  color: #fff;
+  background-color: var(--primary);
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.button:hover {
+  background-color: var(--hover-background);
+  color: var(--hover-color);
+}
+
+.button:focus-visible {
+  outline: 3px solid var(--hover-background);
+  outline-offset: 2px;
+}
+
+.btn-danger {
+  background-color: var(--danger);
+}
+
+.btn-danger:hover {
+  background-color: var(--danger-hover);
+}
+
+.empty-message {
+  padding: 1rem;
+  color: var(--muted);
+  text-align: center;
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+}
+
+:root {
+  --hover-background: #42765a;
+  --hover-color: rgb(0, 255, 162);
+}
+
+
+@media screen and (max-width: 600px) {
+  .app-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
